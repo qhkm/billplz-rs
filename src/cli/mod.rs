@@ -161,10 +161,8 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
     match &cli.command {
         Commands::Mcp => {
             let config = config::Config::load(None)?;
-            let _client = config.into_client();
-            // MCP server - will be implemented in Task 5
-            eprintln!("MCP server not yet implemented");
-            Ok(())
+            let client = config.into_client();
+            crate::mcp::start_mcp_server(client).await
         }
         _ => {
             let config = config::Config::load(None)?;
