@@ -1,1 +1,6 @@
-// Payout collection models - implemented in Task 4
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PayoutCollection {
+    pub title: String,
+}
