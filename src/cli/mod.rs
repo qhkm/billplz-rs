@@ -58,6 +58,7 @@ pub enum CollectionAction {
 }
 
 #[derive(Subcommand)]
+#[allow(clippy::large_enum_variant)]
 pub enum BillAction {
     /// Get a bill by ID
     Get { id: String },

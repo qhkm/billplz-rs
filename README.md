@@ -188,6 +188,109 @@ match client.get_bill("invalid").await {
 }
 ```
 
+## CLI
+
+The `billplz` binary wraps every SDK method as a subcommand with JSON output.
+
+### Installation
+
+```bash
+cargo install billplz
+```
+
+### Configuration
+
+Auth is loaded from environment variables or a config file (`~/.billplz/config.toml`). Env vars take priority.
+
+**Environment variables:**
+
+```bash
+export BILLPLZ_API_KEY="your-api-key"
+export BILLPLZ_ENVIRONMENT="staging"  # or "production" (default)
+```
+
+**Config file** (`~/.billplz/config.toml`):
+
+```toml
+api_key = "your-api-key"
+environment = "staging"
+```
+
+### Commands
+
+```bash
+# Collections
+billplz collection get <id>
+billplz collection create --title "My Collection" --split-header
+
+# Bills
+billplz bill get <id>
+billplz bill create --collection-id <id> --email user@example.com \
+  --name "John Doe" --amount 10000 --callback-url https://example.com/callback \
+  --description "Invoice #123" --due-at "2024-12-31"
+
+# Banks
+billplz bank fpx-list
+billplz bank verify <account-number>
+billplz bank create-verification --name "John Doe" --id-no 91234567890 \
+  --acc-no 999988887777 --code MBBEMYKL
+
+# Payouts
+billplz payout get <id>
+billplz payout create --collection-id <id> --bank-code MBBEMYKL \
+  --acc-no 999988887777 --id-no 91234567890 --name "John Doe" \
+  --description "Salary" --total 50000
+
+# Payout Collections
+billplz payout-collection get <id>
+billplz payout-collection create --title "Salary Payments"
+```
+
+Use `--pretty` for formatted JSON output:
+
+```bash
+billplz --pretty collection get ei3a6mdl
+```
+
+## MCP Server
+
+The `billplz mcp` subcommand starts an MCP (Model Context Protocol) server over stdio, so AI agents can interact with the Billplz API.
+
+### Setup
+
+Add to your MCP client config (e.g. Claude Desktop `claude_desktop_config.json`):
+
+```json
+{
+  "mcpServers": {
+    "billplz": {
+      "command": "billplz",
+      "args": ["mcp"],
+      "env": {
+        "BILLPLZ_API_KEY": "your-api-key",
+        "BILLPLZ_ENVIRONMENT": "staging"
+      }
+    }
+  }
+}
+```
+
+### Available Tools
+
+| Tool | Description |
+|------|-------------|
+| `get_collection` | Get a collection by ID |
+| `create_collection` | Create a new collection |
+| `get_bill` | Get a bill by ID |
+| `create_bill` | Create a new bill |
+| `get_fpx_banks` | List FPX banks |
+| `get_bank_verification` | Get bank verification status |
+| `create_bank_verification` | Create a bank verification |
+| `get_payout` | Get a payout by ID |
+| `create_payout` | Create a payout |
+| `get_payout_collection` | Get a payout collection by ID |
+| `create_payout_collection` | Create a payout collection |
+
 ## Reference
 
 - [Billplz API Documentation](https://billplz.com/api)
