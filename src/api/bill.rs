@@ -21,6 +21,7 @@ pub struct CreateBillBuilder<'a> {
 }
 
 impl<'a> CreateBillBuilder<'a> {
+    #[allow(clippy::too_many_arguments)]
     pub(crate) fn new(
         client: &'a BillplzClient,
         collection_id: impl Into<String>,
@@ -132,6 +133,7 @@ impl BillplzClient {
         self.parse_response(resp).await
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn create_bill(
         &self,
         collection_id: impl Into<String>,

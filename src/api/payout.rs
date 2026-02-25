@@ -14,6 +14,7 @@ pub struct CreatePayoutBuilder<'a> {
 }
 
 impl<'a> CreatePayoutBuilder<'a> {
+    #[allow(clippy::too_many_arguments)]
     pub(crate) fn new(
         client: &'a BillplzClient,
         mass_payment_instruction_collection_id: impl Into<String>,
@@ -80,6 +81,7 @@ impl BillplzClient {
         Ok(resp.text().await?)
     }
 
+    #[allow(clippy::too_many_arguments)]
     pub fn create_payout(
         &self,
         mass_payment_instruction_collection_id: impl Into<String>,
