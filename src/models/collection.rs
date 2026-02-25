@@ -19,7 +19,7 @@ pub struct Collection {
     pub split_payments: Option<Vec<SplitPayment>>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Logo {
     #[serde(default)]
     pub thumb_url: Option<String>,
@@ -27,7 +27,7 @@ pub struct Logo {
     pub avatar_url: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CollectionResponse {
     pub id: String,
     pub title: String,

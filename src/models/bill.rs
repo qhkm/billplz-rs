@@ -25,7 +25,7 @@ pub struct Bill {
     pub reference_2: Option<String>,
 }
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct BillResponse {
     pub id: String,
     pub collection_id: String,
