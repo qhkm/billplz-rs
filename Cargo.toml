@@ -4,6 +4,10 @@ version = "0.1.0"
 edition = "2021"
 description = "Rust SDK for the Billplz payment gateway API"
 license = "MIT"
+repository = "https://github.com/qhkm/billplz-rs"
+keywords = ["billplz", "payment", "fpx", "malaysia"]
+categories = ["api-bindings"]
+readme = "README.md"
 
 [dependencies]
 reqwest = { version = "0.12", features = ["json"] }
